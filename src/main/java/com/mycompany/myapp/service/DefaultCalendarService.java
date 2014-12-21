@@ -56,6 +56,9 @@ public class DefaultCalendarService implements CalendarService {
 	public int createUser(CalendarUser user) {
 		return userDao.createUser(user);
 	}
+	public int createUserRole(CalendarUser user, String role) {
+		return userDao.createUserRole(user, role);
+	}
 
 	@Override
 	public void deleteAllUsers() {

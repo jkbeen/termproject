@@ -17,7 +17,7 @@ public interface CalendarService {
     public List<CalendarUser> getUsersByEmail(String partialEmail);
 
     public int createUser(CalendarUser user);
-    
+    public int createUserRole(CalendarUser user, String role);
     public void deleteAllUsers();
     
     /* Event */

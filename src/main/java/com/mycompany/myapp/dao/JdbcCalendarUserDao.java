@@ -86,7 +86,21 @@ public class JdbcCalendarUserDao implements CalendarUserDao {
 		}, keyHolder);
 		return keyHolder.getKey().intValue();
 	}
-	
+	public int createUserRole(final CalendarUser userToAdd, final String role){
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement("insert into user_roles(email, role) values(?,?)", Statement.RETURN_GENERATED_KEYS);
+				ps.setString(1, userToAdd.getEmail());
+				ps.setString(2, role);
+
+				return ps;
+			}
+		}, keyHolder);
+		return keyHolder.getKey().intValue();
+	}
 	@Override
     public List<CalendarUser> findAllusers() {
 		String sql_query = "select * from calendar_users";

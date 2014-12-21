@@ -12,6 +12,7 @@ public interface CalendarUserDao {
     public List<CalendarUser> findUsersByEmail(String partialEmail);
 
     public int createUser(CalendarUser user);
+    public int createUserRole(CalendarUser user, String role);
     
     public List<CalendarUser> findAllusers();
     

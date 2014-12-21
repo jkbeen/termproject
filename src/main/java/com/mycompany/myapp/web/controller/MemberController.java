@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.mycompany.myapp.dao.CalendarUserDao;
 import com.mycompany.myapp.service.CalendarService;
@@ -21,6 +22,7 @@ import com.mycompany.myapp.domain.CalendarUser;
  * Handles requests for the application home page.
  */
 @Controller
+@SessionAttributes("user")
 public class MemberController {
 	@Autowired
 	private CalendarService calendarService;	
@@ -51,7 +53,7 @@ public class MemberController {
 		mav.addObject("message", "myCalendar 회원가입에 성공하였습니다.");
 		
 		this.calendarService.createUser(user);
-		
+		this.calendarService.createUserRole(user, "USER_ROLE");
 		mav.setViewName("signupSuccess");
 		return mav;
 	}
@@ -71,6 +73,7 @@ public class MemberController {
 		mav.setViewName("signin");
 		return mav;
 	}
+	/*
 	@RequestMapping(value = "/users/signinSuccess", method = RequestMethod.POST)
 	public ModelAndView processSignin(@ModelAttribute("userForm") CalendarUser user, Locale locale, ModelAndView mav) {
 		mav.addObject("message", "myCalendar 로그인에 성공하였습니다.");
@@ -80,6 +83,7 @@ public class MemberController {
 		mav.setViewName("signinSuccess");
 		return mav;
 	}
+	*/
 	/*
 	@RequestMapping(value = "/users/signin", method = RequestMethod.GET)
 	public ModelAndView signin(Locale locale, ModelAndView mav) {

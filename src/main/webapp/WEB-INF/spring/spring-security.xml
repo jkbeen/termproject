@@ -9,19 +9,20 @@
     <!-- enable use-expressions -->
  
 	<http auto-config="true" use-expressions="true">
- 		<intercept-url pattern="/events/my" access="hasRole('ROLE_USER')" />
- 		<intercept-url pattern="/events/form" access="hasRole('ROLE_USER')" />
+ 		<!--  <intercept-url pattern="/events/my" access="hasRole('ROLE_USER')" />
+ 		<intercept-url pattern="/events/form" access="hasRole('ROLE_USER')" />-->
  		<!-- access denied page -->
 		<access-denied-handler error-page="/403" />
  
 		<form-login 
 		    login-page="/users/signin" 
-		    default-target-url="/" 
+		    default-target-url="/events/" 
 			authentication-failure-url="/users/signin?error" 
 			username-parameter="email"
 			password-parameter="password" />
 			
-		<logout logout-success-url="/users/signin?logout"  />
+		<logout logout-success-url="/users/signin?signout"  />
+		<csrf/>
 	</http>
  
 	<!-- Select users and user_roles from database -->
@@ -31,7 +32,7 @@
 		  users-by-username-query=
 		    "select email, password, true from calendar_users where email=?"
 		  authorities-by-username-query=
-		    "select u.email, ur.role from calendar_users u, user_roles ur where u.email = ? and ur.email = u.email " />
+		    "select u.email, ur.email from calendar_users u, user_roles ur where u.email = ? and ur.email = u.email " />
 	  </authentication-provider>
 	</authentication-manager>
 </beans:beans>

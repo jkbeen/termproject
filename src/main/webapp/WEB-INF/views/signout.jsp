@@ -22,33 +22,23 @@
 		    <c:if test="${message != null}">
 		        <div class="alert alert-danger" id="message"><c:out value="${message}"/></div>
 		    </c:if>
-		    <c:if test="${not empty error}">
-				<div class="alert alert-danger" id="message"><c:out value="${error}"/></div>
-			</c:if>
-			<c:if test="${not empty msg}">
-				<div class="alert alert-danger" id="message"><c:out value="${msg}"/></div>
-			</c:if>
-			
-			
- 			<c:url value="/j_spring_security_check" var="LoginUrl" />
- 			<form name='loginForm' action="${LoginUrl}" method='POST'>
-			
-			<table border="0">
-				<tr>
-					<td>E-mail:</td>
-					<td><input type='text' name='email' /></td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td><input type='password' name='password' /></td>
-				</tr>
-				<tr>
-					<td colspan='2'><input name="submit" type="submit" value="submit" /></td>
-				</tr>
-		  	</table> 
-		  	<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
+		    
+			<form action="${logoutUrl}" method="post" id="logoutForm">
+			  <input type="hidden" 
+				name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 			</form>
+			<script>
+				function formSubmit() {
+					document.getElementById("logoutForm").submit();
+				}
+			</script>
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
+				<h2>
+					Welcome : ${pageContext.request.userPrincipal.name} | <a
+						href="javascript:formSubmit()"> Logout</a>
+				</h2>
+			</c:if>
 		<jsp:include page="./includes/footer.jsp"/>
 	</div>
 </body>
